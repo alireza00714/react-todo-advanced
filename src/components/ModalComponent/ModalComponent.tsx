@@ -33,7 +33,11 @@ const ModalComponent: React.FC<IModal> = ({
   };
 
   const handleDateChange = (e: any) => {
-    setFormValue({ ...formValue, ["deadline"!]: new Date(e.value) });
+    const date = new Date(e.value);
+    setFormValue({
+      ...formValue,
+      ["deadline"!]: date,
+    });
   };
 
   const handleSave = () => {
@@ -71,7 +75,6 @@ const ModalComponent: React.FC<IModal> = ({
     });
   };
   if (modalMode !== "delete") {
-    console.log(formValue);
     return (
       <Modal size="lg" centered show={isModalOpen} onHide={closeModal}>
         <Modal.Header closeButton={modalMode === "view" ? true : false}>

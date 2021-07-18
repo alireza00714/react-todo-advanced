@@ -7,13 +7,24 @@ interface IHeader {
   showDrawer: Function;
   showModal: Function;
   setModalMode: Function;
+  search: string;
+  setSearch: Function;
 }
 
-const Header: React.FC<IHeader> = ({ showDrawer, showModal, setModalMode }) => {
+const Header: React.FC<IHeader> = ({
+  showDrawer,
+  showModal,
+  setModalMode,
+  search,
+  setSearch,
+}) => {
   const openDrawer = () => showDrawer(true);
   const openModal = () => {
     showModal(true);
     setModalMode("add");
+  };
+  const handleSearch = (e: any) => {
+    setSearch(e.target.value);
   };
   return (
     <header className="d-flex align-items-center justify-content-between px-2">
@@ -30,6 +41,10 @@ const Header: React.FC<IHeader> = ({ showDrawer, showModal, setModalMode }) => {
           type="text"
           placeholder="Search"
           className="search me-3"
+          value={search}
+          onChange={(e) => {
+            handleSearch(e);
+          }}
         />
         <FaFilter
           size="2rem"

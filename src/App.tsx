@@ -3,8 +3,9 @@ import Header from "./components/Header/Header";
 import ModalComponent from "./components/ModalComponent/ModalComponent";
 import Sidebar from "./components/Sidebar/Sidebar";
 import TableComponent from "./components/TableComponent/TableComponent";
-import { ITask, modalMode } from "./types";
+import { IFilter, ITask, modalMode } from "./types";
 import "./App.css";
+import data from "./data/fakeData";
 
 function App() {
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
@@ -20,8 +21,16 @@ function App() {
     deadline: new Date(),
     details: "",
   });
-  const [tasks, setTasks] = useState<ITask[]>([]);
+  const [tasks, setTasks] = useState<ITask[]>(data);
   const [taskUsedId, setTaskUsedId] = useState<number>(0);
+
+  const [filters, setFilters] = useState<IFilter>({
+    status: "all",
+    priority: "all",
+    deadline: "all",
+  });
+
+  const [search, setSearch] = useState<string>("");
 
   return (
     <>
@@ -29,6 +38,8 @@ function App() {
         showDrawer={setIsDrawerOpen}
         showModal={setIsModalOpen}
         setModalMode={setModalMode}
+        search={search}
+        setSearch={setSearch}
       />
       <TableComponent
         tasks={tasks}
@@ -38,8 +49,15 @@ function App() {
         setTaskUsedId={setTaskUsedId}
         formValue={formValue}
         setFormValue={setFormValue}
+        filters={filters}
+        searchString={search}
       />
-      <Sidebar show={isDrawerOpen} setShow={setIsDrawerOpen} />
+      <Sidebar
+        show={isDrawerOpen}
+        setShow={setIsDrawerOpen}
+        filters={filters}
+        setFilters={setFilters}
+      />
       <ModalComponent
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}

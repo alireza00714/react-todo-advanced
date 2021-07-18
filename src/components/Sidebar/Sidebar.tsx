@@ -1,39 +1,73 @@
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Form from "react-bootstrap/Form";
+import { IFilter } from "../../types";
 
 interface ISidebar {
   show: boolean;
   setShow: Function;
+  filters: IFilter;
+  setFilters: Function;
 }
 
-const Sidebar: React.FC<ISidebar> = ({ show, setShow }) => {
+const Sidebar: React.FC<ISidebar> = ({
+  show,
+  setShow,
+  filters,
+  setFilters,
+}) => {
   const handleHide = () => setShow(false);
+  const handleChange = (e: any) => {
+    setFilters({ ...filters, [e.target.name]: e.target.value });
+  };
   return (
     <Offcanvas show={show} onHide={handleHide} placement="end">
       <Offcanvas.Header closeButton>
         <Offcanvas.Title>Filters</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>
-        <Form.Select aria-label="Priority" className="mb-3">
-          <option>Priority</option>
-          <option value={1}>Low</option>
-          <option value={2}>Medium</option>
-          <option value={3}>High</option>
-          <option value={0}>All</option>
+        <Form.Label>Priority:</Form.Label>
+        <Form.Select
+          aria-label="Priority"
+          className="mb-3"
+          name="priority"
+          onChange={(e) => {
+            handleChange(e);
+          }}
+          value={filters.priority}
+        >
+          <option value={"low"}>Low</option>
+          <option value={"medium"}>Medium</option>
+          <option value={"high"}>High</option>
+          <option value={"all"}>All</option>
         </Form.Select>
-        <Form.Select aria-label="Status" className="mb-3">
-          <option>Status</option>
-          <option value={1}>Todo</option>
-          <option value={2}>Doing</option>
-          <option value={3}>Done</option>
-          <option value={0}>All</option>
+        <Form.Label>Status:</Form.Label>
+        <Form.Select
+          aria-label="Status"
+          className="mb-3"
+          name="status"
+          onChange={(e) => {
+            handleChange(e);
+          }}
+          value={filters.status}
+        >
+          <option value={"todo"}>Todo</option>
+          <option value={"doing"}>Doing</option>
+          <option value={"done"}>Done</option>
+          <option value={"all"}>All</option>
         </Form.Select>
-        <Form.Select aria-label="Deadline">
-          <option>Deadline</option>
-          <option value={1}>Overdue</option>
-          <option value={2}>For Today</option>
-          <option value={3}>For the Future</option>
-          <option value={0}>All</option>
+        <Form.Label>Deadline:</Form.Label>
+        <Form.Select
+          aria-label="Deadline"
+          name="deadline"
+          onChange={(e) => {
+            handleChange(e);
+          }}
+          value={filters.deadline}
+        >
+          <option value={"overdue"}>Overdue</option>
+          <option value={"forToday"}>For Today</option>
+          <option value={"forFuture"}>For the Future</option>
+          <option value={"all"}>All</option>
         </Form.Select>
       </Offcanvas.Body>
     </Offcanvas>
