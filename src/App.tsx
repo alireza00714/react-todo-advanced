@@ -9,10 +9,8 @@ import data from "./data/fakeData";
 
 function App() {
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
-
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [modalMode, setModalMode] = useState<modalMode>("add");
-
   const [formValue, setFormValue] = useState<ITask>({
     id: 0,
     task: "",
@@ -23,13 +21,11 @@ function App() {
   });
   const [tasks, setTasks] = useState<ITask[]>(data);
   const [taskUsedId, setTaskUsedId] = useState<number>(0);
-
   const [filters, setFilters] = useState<IFilter>({
     status: "all",
     priority: "all",
     deadline: "all",
   });
-
   const [search, setSearch] = useState<string>("");
 
   return (
