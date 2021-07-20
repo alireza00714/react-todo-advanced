@@ -15,3 +15,8 @@ export interface IFilter {
   priority: priority | "all";
   deadline: deadlineFilter;
 }
+export interface IOrder {
+  status: number;
+  priority: number;
+  deadline: number;
+}

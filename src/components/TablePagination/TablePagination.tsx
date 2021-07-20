@@ -22,7 +22,6 @@ interface ITablePagination {
 
 const TablePagination: React.FC<ITablePagination> = ({
   tablePages,
-  setTablePages,
   filteredTasks,
   setFilteredTasks,
   pageItemsCount,
